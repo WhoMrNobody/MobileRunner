@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] Button playButton;
 
+
     public void playGame(){
 
         playButton.gameObject.SetActive(false);

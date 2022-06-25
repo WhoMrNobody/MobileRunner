@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     Rigidbody rb;
     Animator animator;
     SceneLoader sceneLoader;
+    ScoreManager scoreManager;
     private float _lastFrameFingerPositionX;
     private float _moveFactorX;
     public float MoveFactorX => _moveFactorX;
@@ -21,6 +22,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         sceneLoader=FindObjectOfType<SceneLoader>();
+        scoreManager=FindObjectOfType<ScoreManager>();
     }
     void FixedUpdate()
     {
@@ -33,6 +35,7 @@ public class PlayerController : MonoBehaviour
 
         if(GameManager.Instance.gameStatusValue==GameManager.GameStatus.FAILED){
             animator.SetBool("isDeath", true);
+            scoreManager.scoreValue=0;
         }
 
         if(GameManager.Instance.gameStatusValue==GameManager.GameStatus.NEXTLEVEL){
@@ -119,6 +122,10 @@ public class PlayerController : MonoBehaviour
         }else if(coll.CompareTag("Finish")){
 
             GameManager.Instance.gameStatusValue=GameManager.GameStatus.NEXTLEVEL;
+        }
+
+        if(coll.CompareTag("Diamond")){
+            scoreManager.scoreValue++;
         }
 
         
