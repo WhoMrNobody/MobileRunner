@@ -8,8 +8,15 @@ public class MainMenuManager : MonoBehaviour
 {
     [SerializeField] TMP_Text highScoreText_;
 
+    AsyncOperation sceneLoader;
+
+    void Start() {
+        
+        sceneLoader= SceneManager.LoadSceneAsync(1, LoadSceneMode.Single);
+        sceneLoader.allowSceneActivation=false;
+    }
     public void StartGame(){
-        SceneManager.LoadScene(1);
+        sceneLoader.allowSceneActivation=true;
     }
 
     public void Quit(){

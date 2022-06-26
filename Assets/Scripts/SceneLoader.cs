@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-    int activeScene;
+    public int activeScene;
     
     void Awake() {
 
@@ -15,7 +15,7 @@ public class SceneLoader : MonoBehaviour
     
     void Update()
     {
-        activeScene=SceneManager.GetActiveScene().buildIndex;
+        this.activeScene=SceneManager.GetActiveScene().buildIndex;
         
     }
 

@@ -12,7 +12,7 @@ public class Diamond : MonoBehaviour
 
     void OnTriggerEnter(Collider coll) {
         if(coll.CompareTag("Player")){
-            transform.DOScale(new Vector3(0f, 0f, 0f), 1f).SetEase(Ease.InBack);
+            transform.DOScale(new Vector3(0f, 0f, 0f), 1f).SetEase(Ease.InCubic);
         }
     }
 }
