@@ -25,6 +25,18 @@ public class GameManager : MonoBehaviour
 
     }
 
+    void Update() {
+
+        if(Instance.gameStatusValue==GameStatus.NONE){
+
+            for (int i = 0; i < confetti.Length; i++)
+            {
+                Instance.confetti[i].Stop();
+            }
+        }
+
+    }
+
     public enum GameStatus{
         PLAY,
         FAILED,

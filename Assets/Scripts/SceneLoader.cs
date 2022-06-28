@@ -4,20 +4,16 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
-{
-    public int activeScene;
+{   
+    [SerializeField] GameObject[] Levels;
+    public int activeLevel;
     
     void Awake() {
 
-        activeScene=SceneManager.GetActiveScene().buildIndex;
+        activeLevel=1;
         
     }
     
-    void Update()
-    {
-        this.activeScene=SceneManager.GetActiveScene().buildIndex;
-        
-    }
 
     public IEnumerator LoadNextLevel(){
 
@@ -27,7 +23,29 @@ public class SceneLoader : MonoBehaviour
         }
         yield return new WaitForSeconds(4f);
 
-        SceneManager.LoadScene(activeScene + 1);
+        switch (activeLevel){
+            case 2: 
+                Levels[0].gameObject.SetActive(false);
+                Levels[1].gameObject.SetActive(true); 
+            break;
+            case 3:
+                Levels[1].gameObject.SetActive(false);
+                Levels[2].gameObject.SetActive(true);
+            break;
+            case 4:
+                Levels[2].gameObject.SetActive(false);
+                Levels[3].gameObject.SetActive(true);
+            break;
+            case 5:
+                Levels[3].gameObject.SetActive(false);
+                Levels[4].gameObject.SetActive(true);
+            break;
 
+            default:
+                activeLevel=1;
+            break;
+
+        }
+        
     }
 }

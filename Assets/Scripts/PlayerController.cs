@@ -26,8 +26,10 @@ public class PlayerController : MonoBehaviour
     }
     void FixedUpdate()
     {
+
         if(GameManager.Instance.gameStatusValue==GameManager.GameStatus.PLAY){
             
+            animator.SetBool("isIdle", false);
             animator.SetBool("isRunning", true);
             Movement();
             TendingMove();
@@ -42,7 +44,7 @@ public class PlayerController : MonoBehaviour
 
             animator.SetBool("isFinished", true);
             StartCoroutine(sceneLoader.LoadNextLevel());
-
+            Invoke(nameof(StartPos), 4.2f);
         }
 
  
@@ -122,6 +124,9 @@ public class PlayerController : MonoBehaviour
         }else if(coll.CompareTag("Finish")){
 
             GameManager.Instance.gameStatusValue=GameManager.GameStatus.NEXTLEVEL;
+            animator.SetBool("isRunning", false);
+            sceneLoader.activeLevel++;
+            
         }
 
         if(coll.CompareTag("Diamond")){
@@ -129,6 +134,14 @@ public class PlayerController : MonoBehaviour
         }
 
         
+    }
+
+    void StartPos(){
+
+        GameManager.Instance.gameStatusValue=GameManager.GameStatus.NONE;
+        transform.position= new Vector3(0f, 0f, 0f);
+        animator.SetBool("isFinished", false);
+        animator.SetBool("isIdle", true);
     }
 
 }

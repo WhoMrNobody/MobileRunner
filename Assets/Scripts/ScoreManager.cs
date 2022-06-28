@@ -9,12 +9,7 @@ public class ScoreManager : MonoBehaviour
 
     public const string HighScoreKey = "HighScore";
     public int scoreValue=0;
-    void Start()
-    {
 
-    }
-
-    
     void Update()
     {
         scoreText_.text=scoreValue.ToString();

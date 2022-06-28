@@ -35,6 +35,10 @@ public class UIManager : MonoBehaviour
         }else if(GameManager.Instance.gameStatusValue==GameManager.GameStatus.NONE){
             
             gameOverCanvas_.gameObject.SetActive(false);
+
+        }else if(GameManager.Instance.gameStatusValue==GameManager.GameStatus.NEXTLEVEL){
+
+            Invoke(nameof(ActivatePlayButton), 4.5f);
         }
 
     }
@@ -43,7 +47,7 @@ public class UIManager : MonoBehaviour
 
         gameOverCanvas_.gameObject.SetActive(false);
         GameManager.Instance.gameStatusValue=GameManager.GameStatus.NONE;
-        SceneManager.LoadScene(sceneLoader.activeScene);
+        SceneManager.LoadScene(sceneLoader.activeLevel);
         
     }
 
@@ -53,6 +57,10 @@ public class UIManager : MonoBehaviour
         GameManager.Instance.gameStatusValue=GameManager.GameStatus.NONE;
         SceneManager.LoadScene(0);
         
+    }
+
+    void ActivatePlayButton(){
+        playButton.gameObject.SetActive(true);
     }
    
 }
