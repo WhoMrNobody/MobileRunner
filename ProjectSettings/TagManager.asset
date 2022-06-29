@@ -7,6 +7,9 @@ TagManager:
   - Obstacle
   - Confetti
   - Diamond
+  - Crossfade
+  - PlayButton
+  - Ground
   layers:
   - Default
   - TransparentFX

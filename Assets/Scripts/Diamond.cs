@@ -7,7 +7,7 @@ public class Diamond : MonoBehaviour
 {
 
     private void Start() {
-        transform.DOMove(new Vector3(transform.position.x, 1.6f, transform.position.z), 2f).SetEase(Ease.OutBounce).SetLoops(-1, LoopType.Yoyo);
+        transform.DOMove(new Vector3(transform.position.x, 1.6f, transform.position.z), 2f).SetEase(Ease.InOutCirc).SetLoops(-1, LoopType.Yoyo);
     }
 
     void OnTriggerEnter(Collider coll) {

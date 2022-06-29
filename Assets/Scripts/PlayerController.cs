@@ -7,7 +7,8 @@ public class PlayerController : MonoBehaviour
 
     public float _playerSpeed;
     Rigidbody rb;
-    Animator animator;
+
+    [HideInInspector] public Animator animator;
     SceneLoader sceneLoader;
     ScoreManager scoreManager;
     private float _lastFrameFingerPositionX;
@@ -23,10 +24,16 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         sceneLoader=FindObjectOfType<SceneLoader>();
         scoreManager=FindObjectOfType<ScoreManager>();
+        
+    }
+
+    void Start() {
+        animator.SetBool("isIdle", true);
     }
     void FixedUpdate()
     {
-
+        Debug.Log(GameManager.Instance.gameStatusValue);
+        
         if(GameManager.Instance.gameStatusValue==GameManager.GameStatus.PLAY){
             
             animator.SetBool("isIdle", false);
@@ -36,6 +43,7 @@ public class PlayerController : MonoBehaviour
         }
 
         if(GameManager.Instance.gameStatusValue==GameManager.GameStatus.FAILED){
+            animator.SetBool("isRunning", false);
             animator.SetBool("isDeath", true);
             scoreManager.scoreValue=0;
         }
@@ -44,7 +52,7 @@ public class PlayerController : MonoBehaviour
 
             animator.SetBool("isFinished", true);
             StartCoroutine(sceneLoader.LoadNextLevel());
-            Invoke(nameof(StartPos), 4.2f);
+            StartCoroutine(StartPos());
         }
 
  
@@ -136,12 +144,15 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    void StartPos(){
+    IEnumerator StartPos(){
 
-        GameManager.Instance.gameStatusValue=GameManager.GameStatus.NONE;
-        transform.position= new Vector3(0f, 0f, 0f);
+        yield return new WaitForSeconds(4f);
         animator.SetBool("isFinished", false);
+        transform.position= new Vector3(0f, 0.5f, 0f);
         animator.SetBool("isIdle", true);
+        yield return new WaitForSeconds(4f);
+        GameManager.Instance.gameStatusValue=GameManager.GameStatus.NONE;
+        
     }
 
 }

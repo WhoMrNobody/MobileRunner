@@ -8,7 +8,7 @@ public class SceneLoader : MonoBehaviour
     [SerializeField] GameObject[] Levels;
     public int activeLevel;
     
-    void Awake() {
+    void Start() {
 
         activeLevel=1;
         
@@ -21,7 +21,7 @@ public class SceneLoader : MonoBehaviour
         {
             GameManager.Instance.confetti[i].Play(true);
         }
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(3.8f);
 
         switch (activeLevel){
             case 2: 
