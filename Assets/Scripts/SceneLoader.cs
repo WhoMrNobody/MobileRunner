@@ -7,11 +7,26 @@ public class SceneLoader : MonoBehaviour
 {   
     [SerializeField] GameObject[] Levels;
     public int activeLevel;
+
+    UIManager uiManager;
+
+    void Awake() {
+        uiManager=FindObjectOfType<UIManager>();
+    }
     
     void Start() {
 
         activeLevel=1;
+    }
+
+    void Update() {
         
+        if(activeLevel==5 && GameManager.Instance.gameStatusValue==GameManager.GameStatus.FINISH){
+
+            uiManager.BackToMainMenu();
+
+        }
+
     }
     
 

@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class MovingTrap : MonoBehaviour
 {
-    [SerializeField] float _trapRotationSpeed;
-    [SerializeField] float _trapMoveSpeed;
+    [SerializeField] Mesh objectMesh;
     public bool isTrapActivated =false;
-
+    public MoveableTraps moveableTraps;
+    float _trapMoveSpeed;
+    float _trapRotationSpeed=1f;
     Vector3 _currentTransformPos;
     void Start() {
         
+        _trapMoveSpeed=moveableTraps.trapMoveSpeed;
+        objectMesh=moveableTraps.trapMesh;
         _currentTransformPos = transform.position;
 
     }
@@ -21,6 +24,7 @@ public class MovingTrap : MonoBehaviour
 
             transform.Translate(Vector3.back * _trapMoveSpeed * Time.deltaTime, Space.World);
             transform.Rotate(-_trapRotationSpeed, transform.rotation.y, transform.rotation.z);
+            Destroy(gameObject, 10f);
             
         }
 

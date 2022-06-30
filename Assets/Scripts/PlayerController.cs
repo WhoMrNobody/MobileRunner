@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public Animator animator;
     SceneLoader sceneLoader;
     ScoreManager scoreManager;
-    MovingTrap movingTrap;
+    MovingTrap[] movingTrap;
     private float _lastFrameFingerPositionX;
     private float _moveFactorX;
     public float MoveFactorX => _moveFactorX;
@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         sceneLoader=FindObjectOfType<SceneLoader>();
         scoreManager=FindObjectOfType<ScoreManager>();
-        movingTrap=FindObjectOfType<MovingTrap>();
+        movingTrap=FindObjectsOfType<MovingTrap>();
         
     }
 
@@ -129,11 +129,16 @@ public class PlayerController : MonoBehaviour
 
             GameManager.Instance.gameStatusValue=GameManager.GameStatus.FAILED;
 
-        }else if(coll.CompareTag("Finish")){
+        }
+        
+        if(coll.CompareTag("Finish")){
 
             GameManager.Instance.gameStatusValue=GameManager.GameStatus.NEXTLEVEL;
             animator.SetBool("isRunning", false);
             sceneLoader.activeLevel++;    
+
+        }else if(coll.CompareTag("Finish") && sceneLoader.activeLevel==5){
+            GameManager.Instance.gameStatusValue=GameManager.GameStatus.FINISH;
         }
 
         if(coll.CompareTag("Diamond")){
@@ -141,7 +146,11 @@ public class PlayerController : MonoBehaviour
         }
 
         if(coll.CompareTag("TrapTrigger")){
-            movingTrap.isTrapActivated=true;
+
+            for (int i = 0; i < movingTrap.Length; i++)
+            {
+                movingTrap[i].isTrapActivated=true;
+            }
         }
 
         
