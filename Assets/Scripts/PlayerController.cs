@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
     public float _playerSpeed;
     Rigidbody rb;
-
     [HideInInspector] public Animator animator;
     SceneLoader sceneLoader;
     ScoreManager scoreManager;
+    MovingTrap movingTrap;
     private float _lastFrameFingerPositionX;
     private float _moveFactorX;
     public float MoveFactorX => _moveFactorX;
@@ -24,6 +23,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         sceneLoader=FindObjectOfType<SceneLoader>();
         scoreManager=FindObjectOfType<ScoreManager>();
+        movingTrap=FindObjectOfType<MovingTrap>();
         
     }
 
@@ -133,12 +133,15 @@ public class PlayerController : MonoBehaviour
 
             GameManager.Instance.gameStatusValue=GameManager.GameStatus.NEXTLEVEL;
             animator.SetBool("isRunning", false);
-            sceneLoader.activeLevel++;
-            
+            sceneLoader.activeLevel++;    
         }
 
         if(coll.CompareTag("Diamond")){
             scoreManager.scoreValue++;
+        }
+
+        if(coll.CompareTag("TrapTrigger")){
+            movingTrap.isTrapActivated=true;
         }
 
         
